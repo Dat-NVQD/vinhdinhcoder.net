@@ -9,7 +9,9 @@ int findNumber(ll a,ll b[])
         return b[1]+=1;
     else if(a%3 == 1)
         return b[0]+=1;
-    return b[2]+=1;
+    else if(a == 0)
+        return b[2]+=2;
+    return 0;
 }
 
 int findStep(ll b[])
@@ -19,9 +21,7 @@ int findStep(ll b[])
         return b[2]+3;
     else if(a/3 == 2)
         return b[2]+4;
-    else if(b[2]>0)
-        return b[2]+2;
-    return b[2]+1;
+    return b[2];
 }
 
 int main()
