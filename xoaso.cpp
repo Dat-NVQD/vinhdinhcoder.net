@@ -3,26 +3,7 @@
 #define ll long long
 using namespace std;
 
-int findNumber(ll a,ll b[])
-{
-    if(a%3 == 2)
-        return b[1]+=1;
-    else if(a%3 == 1)
-        return b[0]+=1;
-    else if(a == 0)
-        return b[2]+=2;
-    return 0;
-}
-
-int findStep(ll b[])
-{
-    ll a = abs(b[1] - b[0]);
-    if(a/3 == 1)
-        return b[2]+3;
-    else if(a/3 == 2)
-        return b[2]+4;
-    return b[2];
-}
+static ll a[10001],b[10001];
 
 int main()
 {
@@ -31,29 +12,32 @@ int main()
     freopen("input.inp","r",stdin);
     freopen("output.inp","w",stdout);
     #endif
-    //--------------------------------------------------
-    ll x,n(0),a[100005],b[3];
-    cin >> x;
-    ll thex = x;
-    while(thex > 0)
-    {
-        a[n] = thex % 10;
-        thex = thex/10;
-        ++n;
-    }
-    //--------------------------------------------------
-    for(int i(0);i<3;i++)
-    {
-        b[i] = 0;
-    }
-    //--------------------------------------------------
-    for(int i(0);i<n;i++)
-    {
-        findNumber(a[i],b);
-    }
-    //--------------------------------------------------
-    cout << findStep(b);
     
-
+    ll n;
+    //--------------------------------------------------
+    cin >> n;
+    ll then = n;
+    ll ans = 0;
+    if(n%3==0)
+        ans+=2;
+    ll k(1);
+    for(int i(1);then!=0;i++)
+    {
+        a[i] = (then % 10) % 3;
+        then = then/10;
+        k++;
+    }
+    ll res = 0;
+    for(int i(1);i<=k;i++)
+    {
+        if(a[i]>0)
+        {
+            b[i] = b[i-1] + a[i];
+        }
+    }
+    for(int i(1);i<=k;i++)
+        if(b[i]%3!=0)
+            ans++;
+    cout << ans;
     return 0;
 }
